@@ -48,12 +48,12 @@ module case_top(size, radius, thickness) {
 }
 
 module slider() {
-    cube([6, 3.5, 2], center =true);
-    translate([-8, 0, 0]) {
-        cylinder(h=2, r=1.25, center=true);
+    cube([7, 3.5, 2], center =true);
+    translate([-7.5, 0, 0]) {
+        cylinder(h=2, r=1.5, center=true);
     }
-    translate([8, 0, 0]) {
-        cylinder(h=2, r=1.25, center=true);
+    translate([7.5, 0, 0]) {
+        cylinder(h=2, r=1.5, center=true);
     }
 }
 
@@ -78,8 +78,15 @@ module bigSwitch() {
     }
 }
 
+module column(height, outer, inner) {
+    difference() {
+        cylinder(h=height, r=outer, center=true);
+        cylinder(h=height, r=inner, center=true);
+    }
+}
+
 module keySection() {
-    cylinder(h=2, r=6.25, center=true);
+    translate([0, -20, 0]) cylinder(h=2, r=6.25, center=true);
     translate([0, 20, 0]) {
         smallLed();
     }
@@ -142,61 +149,50 @@ module bigLedSection() {
         bigSwitch();
     }
 }
+
+module enclosure_screw_columns() {
+    translate([76, 33.5, 0]) column(27, 4, 1.2);
+    translate([-76, 33.5, 0]) column(27, 4, 1.2);
+    translate([76, -33.5, 0]) column(27, 4, 1.2);
+    translate([-76, -33.5, 0]) column(27, 4, 1.2);
+}
+
+module pcb_screw_columns() {
+    translate([-20, 30, 0]) column(25, 4, 1.2);
+    translate([20, 30, 0]) column(25, 4, 1.2);
+    translate([-20, -30, 0]) column(25, 4, 1.2);
+    translate([20, -30, 0]) column(25, 4, 1.2);
+}
+
 module main() {
-union() {
-
-    difference() {
-        case_top([170, 84, 27], 3, 2);
-        translate([0, 0, -12.5]) {
-            translate([-60, 0, 0]) {
-                keySection();
-            }
-      
-            translate([-25, 0, 0]) {
-                triangleLedSection();
-            }
-            
-            translate([20, 0, 0]) {
-                dualSliderSection();
-            }
-            
-            translate([60, 0, 0]) {
-                bigLedSection();
-            }
-        }
-    }
+    union() {
     
-    translate([76, 33.5, 0]) {
         difference() {
-            cylinder(h=27, r=4, center=true);
-            cylinder(h=27, r=1.2, center=true);
+            case_top([170, 84, 27], 3, 2);
+            translate([0, 0, -12.5]) {
+                translate([-60, 0, 0]) {
+                    keySection();
+                }
+          
+                translate([-25, 0, 0]) {
+                    triangleLedSection();
+                }
+                
+                translate([20, 0, 0]) {
+                    dualSliderSection();
+                }
+                
+                translate([60, 0, 0]) {
+                    bigLedSection();
+                }
+            }
         }
+        enclosure_screw_columns();
+        translate([-25, 0, 0]) pcb_screw_columns();
     }
-    translate([-76, 33.5, 0]) {
-        difference() {
-            cylinder(h=27, r=4, center=true);
-            cylinder(h=27, r=1.2, center=true);
-        }
-    }
-    translate([76, -33.5, 0]) {
-        difference() {
-            cylinder(h=27, r=4, center=true);
-            cylinder(h=27, r=1.2, center=true);
-        }
-    }
-    translate([-76, -33.5, 0]) {
-        difference() {
-            cylinder(h=27, r=4, center=true);
-            cylinder(h=27, r=1.2, center=true);
-        }
-    }
-}
 
 }
 
-projection(cut=true)
-translate([0,0,35])
-rotate(90,[1,0,0])
 main();
 /*
 translate([100,0,0]) {
