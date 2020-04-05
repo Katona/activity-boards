@@ -142,6 +142,7 @@ module bigLedSection() {
         bigSwitch();
     }
 }
+module main() {
 union() {
 
     difference() {
@@ -191,6 +192,12 @@ union() {
     }
 }
 
+}
+
+projection(cut=true)
+translate([0,0,35])
+rotate(90,[1,0,0])
+main();
 /*
 translate([100,0,0]) {
     intersection() {
