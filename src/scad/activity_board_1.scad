@@ -29,15 +29,19 @@ module case_top(size, radius, thickness) {
     
     difference() {
         translate([0, 0, radius / 2]) {
+            // make depth bigger ...
             rounded_cube([width, height, depth + radius], radius);
         }
+        // ...and cut rounded parts at bottom
         translate([0, 0, depth / 2 + radius / 2]) {
             cube([width, height, radius], center=true);
         }
         translate([0, 0, depth / 2 - 1]) {
+            // create notch at the bottom
             cube([width - thickness, height - thickness, 2], center=true);
         }
         translate([0, 0, thickness]) {
+            // make case hollow
             cube([width - thickness * 2, height - thickness * 2, depth], center=true);
         }
     }
@@ -141,12 +145,6 @@ module bigLedSection() {
 union() {
 
     difference() {
-
-//        rounded_cube([170, 84, 27], 3);
-
-//        translate([0, 0, 2]) {
-//            cube([166, 80, 27], center=true);
-//        }
         case_top([170, 84, 27], 3, 2);
         translate([0, 0, -12.5]) {
             translate([-60, 0, 0]) {
