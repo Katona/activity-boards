@@ -71,7 +71,7 @@ module lever() {
 }
 
 module bigSwitch() {
-    cylinder(h=2, r=10.25, center=true);
+    cylinder(h=2, r=10, center=true);
     cube([5.2, 20.6, 2], center=true);
     translate([5, 0, 0]) {
         cube([11, 2.1, 2], center=true);
@@ -86,28 +86,23 @@ module column(height, outer, inner) {
 }
 
 module keySection() {
-    translate([0, -20, 0]) cylinder(h=2, r=6.25, center=true);
-    translate([0, 20, 0]) {
+    translate([0, -10, 0]) cylinder(h=2, r=6.25, center=true);
+    translate([0, 10, 0]) {
         smallLed();
     }
 }
 
 module triangleLedSection() {
-    translate([0, -30, 0]) {  
-        slider();
-        translate([0, 20, 0]) {
-            smallLed();
-        }
-        translate([-10, 30, 0]) {
-            smallLed();
-        }
-        translate([10, 30, 0]) {
-            smallLed();
-        }
-        translate([-10, 50, 0]) {
+    translate([0, 0, 0]) {  
+        translate([0, -25, 0]) slider();
+        translate([0, -10, 0]) smallLed();
+        translate([-10, 0, 0]) smallLed();
+        translate([10, -0, 0]) smallLed();
+
+        translate([-10, 25, 0]) {
             bigLed();
         }
-        translate([10, 50, 0]) {
+        translate([10, 25, 0]) {
             lever();
         }
     }
@@ -139,10 +134,10 @@ module dualSliderSection() {
 }
 
 module bigLedSection() {
-    translate([0, -10, 0]) {
+    translate([0, -5, 0]) {
         bigLed();
     }
-    translate([0, -30, 0]) {
+    translate([0, -25, 0]) {
         bigLed();
     }
     translate([0, 20, 0]) {
@@ -158,10 +153,12 @@ module enclosure_screw_columns() {
 }
 
 module pcb_screw_columns() {
-    translate([-20, 30, 0]) column(25, 4, 1.2);
-    translate([20, 30, 0]) column(25, 4, 1.2);
-    translate([-20, -30, 0]) column(25, 4, 1.2);
-    translate([20, -30, 0]) column(25, 4, 1.2);
+    translate([0, 0, -0.5 ]) {
+        translate([-20, 30, 0]) column(26, 4, 1.2);
+        translate([20, 30, 0]) column(26, 4, 1.2);
+        translate([-20, -30, 0]) column(26, 4, 1.2);
+        translate([20, -30, 0]) column(26, 4, 1.2);
+    }
 }
 
 module main() {
@@ -192,6 +189,10 @@ module main() {
     }
 
 }
+
+//projection(cut=true)
+//translate([0,0,33.5])
+//rotate(90,[1,0,0])
 
 main();
 /*
