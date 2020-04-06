@@ -154,10 +154,10 @@ module enclosure_screw_columns() {
 
 module pcb_screw_columns() {
     translate([0, 0, -0.5 ]) {
-        translate([-20, 30, 0]) column(26, 4, 1.2);
-        translate([20, 30, 0]) column(26, 4, 1.2);
-        translate([-20, -30, 0]) column(26, 4, 1.2);
-        translate([20, -30, 0]) column(26, 4, 1.2);
+        translate([-17, 27, 0]) column(26, 3, 0.9);
+        translate([17, 27, 0]) column(26, 3, 0.9);
+        translate([-17, -27, 0]) column(26, 3, 0.9);
+        translate([17, -27, 0]) column(26, 3, 0.9);
     }
 }
 
@@ -185,7 +185,7 @@ module main() {
             }
         }
         enclosure_screw_columns();
-        translate([-25, 0, 0]) pcb_screw_columns();
+        translate([-20, 7, 0]) pcb_screw_columns();
     }
 
 }
