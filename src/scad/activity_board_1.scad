@@ -59,11 +59,11 @@ module slider() {
 
 
 module smallLed() {
-    cylinder(h=2, r=2.25, center=true);
+    cylinder(h=2, r=2.20, center=true);
 }
 
 module bigLed() {
-    cylinder(h=2, r=4, center=true);
+    cylinder(h=2, r=3.9, center=true);
 }
 
 module lever() {
@@ -71,11 +71,8 @@ module lever() {
 }
 
 module bigSwitch() {
-    cylinder(h=2, r=10, center=true);
-    cube([5.2, 20.6, 2], center=true);
-    translate([5, 0, 0]) {
-        cube([11, 2.1, 2], center=true);
-    }
+    cylinder(h=2, r=10.25, center=true);
+    cube([5.2, 21, 2], center=true);
 }
 
 module column(height, outer, inner) {
@@ -85,8 +82,16 @@ module column(height, outer, inner) {
     }
 }
 
+module key() {
+    difference() {
+        cylinder(h=2, r=6.25, center=true);
+        translate([6.25, 0, 0]) cube([2.5, 25, 2], center=true);
+        translate([-6.25, 0, 0]) cube([2.5, 25, 2], center=true);
+    }
+}
+
 module keySection() {
-    translate([0, -10, 0]) cylinder(h=2, r=6.25, center=true);
+    translate([0, -10, 0]) key();
     translate([0, 10, 0]) {
         smallLed();
     }
@@ -146,18 +151,30 @@ module bigLedSection() {
 }
 
 module enclosure_screw_columns() {
-    translate([76, 33.5, 0]) column(27, 4, 1.2);
-    translate([-76, 33.5, 0]) column(27, 4, 1.2);
-    translate([76, -33.5, 0]) column(27, 4, 1.2);
-    translate([-76, -33.5, 0]) column(27, 4, 1.2);
+    translate([76, 33.5, 0]) { 
+        column(27, 4, 1.2);
+        translate([-1, 2, 4]) cube([2, 6, 4]);
+    }
+    translate([-76, 33.5, 0]) {
+        column(27, 4, 1.2);
+        translate([-1, 2, 4]) cube([2, 6, 4]);
+    }
+    translate([76, -33.5, 0]) {
+        column(27, 4, 1.2);
+        translate([-1, -8, 4]) cube([2, 6, 4]);
+    }
+    translate([-76, -33.5, 0]) {
+        column(27, 4, 1.2);
+        translate([-1, -8, 4]) cube([2, 6, 4]);
+    }
 }
 
 module pcb_screw_columns() {
     translate([0, 0, -0.5 ]) {
-        translate([-17, 27, 0]) column(26, 3, 0.9);
-        translate([17, 27, 0]) column(26, 3, 0.9);
-        translate([-17, -27, 0]) column(26, 3, 0.9);
-        translate([17, -27, 0]) column(26, 3, 0.9);
+        translate([-17.5, 27.5, 0]) column(26, 3, 0.9);
+        translate([17.5, 27.5, 0]) column(26, 3, 0.9);
+        translate([-17.5, -27.5, 0]) column(26, 3, 0.9);
+        translate([17.5, -27.5, 0]) column(26, 3, 0.9);
     }
 }
 
